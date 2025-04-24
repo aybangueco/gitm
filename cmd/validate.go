@@ -3,6 +3,7 @@ package cmd
 import (
 	"errors"
 	"os"
+	"os/exec"
 	"regexp"
 )
 
@@ -12,6 +13,19 @@ func isInitialized() bool {
 	}
 
 	return false
+}
+
+func isGitInstalled() error {
+	_, err := exec.LookPath("git")
+	if err != nil {
+		if errors.Is(err, exec.ErrNotFound) {
+			return ErrGitNotInstalled
+		}
+
+		return err
+	}
+
+	return nil
 }
 
 func validateUsername(s string) error {
