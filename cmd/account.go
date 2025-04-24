@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"log"
 
@@ -89,6 +90,30 @@ func viewAccounts() ([]account, error) {
 	return accounts, nil
 }
 
+func viewAccountByID(id int) (account, error) {
+	var account account
+
+	db, err := newDBConn()
+	if err != nil {
+		return account, err
+	}
+
+	defer db.Close()
+
+	query := `SELECT * FROM account WHERE id = ?`
+
+	err = db.QueryRow(query, id).Scan(&account.Id, &account.Username, &account.Email, &account.Active)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return account, ErrAccountNotFound
+		}
+
+		return account, err
+	}
+
+	return account, nil
+}
+
 func addNewAccount(account account) error {
 	db, err := newDBConn()
 	if err != nil {
@@ -102,6 +127,26 @@ func addNewAccount(account account) error {
 	_, err = db.Exec(query, account.Username, account.Email)
 	if err != nil {
 		log.Println(err)
+		return err
+	}
+
+	return nil
+}
+
+func deleteAccount(id int) error {
+	db, err := newDBConn()
+	if err != nil {
+		return err
+	}
+
+	query := `DELETE FROM account WHERE id = ?`
+
+	_, err = db.Exec(query, id)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return ErrAccountNotFound
+		}
+
 		return err
 	}
 
