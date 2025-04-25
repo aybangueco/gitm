@@ -1,4 +1,4 @@
-# gitm
+# Gitm
 
 A simple cli application to manage multiple git cli accounts.
 
@@ -12,6 +12,48 @@ I noticed that there is no built in functionality in git itself, when managing a
 go install github.com/aybangueco/gitm
 ```
 
+## Commands
+
+### Init
+
+This command is mandatory, especially for fresh installs of Gitm.
+
+```bash
+gitm init
+```
+
+### Account list
+
+Shows list of accounts.
+
+```bash
+gitm list-accounts
+```
+
+### Add Account
+
+Adds new git account.
+
+```bash
+gitm add-account
+```
+
+### Update Account
+
+Update information of existing accounts (replace account id with actual id of account).
+
+```bash
+gitm update-account [accountID]
+```
+
+### Delete Account
+
+Delete existing account (replace account id with actual id of account).
+
+```bash
+gitm delete-account [accountID]
+```
+
 ## TODO
 
 - [x] Add account
@@ -19,7 +61,7 @@ go install github.com/aybangueco/gitm
 - [x] Update account (pending)
 - [x] Switch account
 - [x] Delete account
-- [] Add ssh key specifics on account
+- [ ] Add ssh key specifics on account
 
 ## Contributing
 
