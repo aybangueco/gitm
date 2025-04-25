@@ -34,6 +34,12 @@ var switchAccountCmd = &cobra.Command{
 			}
 		}
 
+		activeAccount, err := getActiveAccount()
+		if err != nil {
+			cmd.Println(err.Error())
+			return
+		}
+
 		err = isGitInstalled()
 		if err != nil {
 			if errors.Is(err, ErrGitNotInstalled) {
@@ -54,6 +60,20 @@ var switchAccountCmd = &cobra.Command{
 		gitEmailCmd := exec.Command("git", "config", "--global", "user.email", *acc.Email)
 		if err := gitEmailCmd.Run(); err != nil {
 			cmd.Println("Failed to set git email:", err)
+			return
+		}
+
+		oldAccountActive := false
+		err = updateAccount(activeAccount.Id, account{Active: &oldAccountActive})
+		if err != nil {
+			cmd.Println(err.Error())
+			return
+		}
+
+		switchedAccountActive := true
+		err = updateAccount(int(parsedId), account{Active: &switchedAccountActive})
+		if err != nil {
+			cmd.Println(err.Error())
 			return
 		}
 

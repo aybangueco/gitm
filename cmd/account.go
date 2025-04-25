@@ -114,6 +114,24 @@ func viewAccountByID(id int) (account, error) {
 	return account, nil
 }
 
+func getActiveAccount() (account, error) {
+	var account account
+
+	db, err := newDBConn()
+	if err != nil {
+		return account, nil
+	}
+
+	query := `SELECT * FROM account WHERE active = 1`
+
+	err = db.QueryRow(query).Scan(&account.Id, &account.Username, &account.Email, &account.Active)
+	if err != nil {
+		return account, err
+	}
+
+	return account, nil
+}
+
 func addNewAccount(account account) error {
 	db, err := newDBConn()
 	if err != nil {
