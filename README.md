@@ -29,6 +29,11 @@ Shows list of accounts.
 ```bash
 gitm list-accounts
 ```
+### Switch Account
+Switch to an existing accounts (replace account id with actual id of account).
+```bash
+gitm switch-account [accountID]
+```
 
 ### Add Account
 
