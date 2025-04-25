@@ -2,7 +2,12 @@ module github.com/aybangueco/gitm
 
 go 1.24.2
 
-require github.com/spf13/cobra v1.9.1
+require (
+	github.com/charmbracelet/huh v0.7.0
+	github.com/jedib0t/go-pretty/v6 v6.6.7
+	github.com/mattn/go-sqlite3 v1.14.28
+	github.com/spf13/cobra v1.9.1
+)
 
 require (
 	github.com/atotto/clipboard v0.1.4 // indirect
@@ -11,7 +16,6 @@ require (
 	github.com/charmbracelet/bubbles v0.21.0 // indirect
 	github.com/charmbracelet/bubbletea v1.3.4 // indirect
 	github.com/charmbracelet/colorprofile v0.3.0 // indirect
-	github.com/charmbracelet/huh v0.7.0 // indirect
 	github.com/charmbracelet/lipgloss v1.1.0 // indirect
 	github.com/charmbracelet/x/ansi v0.8.0 // indirect
 	github.com/charmbracelet/x/cellbuf v0.0.13 // indirect
@@ -24,7 +28,6 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-localereader v0.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
-	github.com/mattn/go-sqlite3 v1.14.28 // indirect
 	github.com/mitchellh/hashstructure/v2 v2.0.2 // indirect
 	github.com/muesli/ansi v0.0.0-20230316100256-276c6243b2f6 // indirect
 	github.com/muesli/cancelreader v0.2.2 // indirect
