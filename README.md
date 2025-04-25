@@ -15,10 +15,11 @@ go install github.com/aybangueco/gitm
 ## TODO
 
 - [x] Add account
-- [ ] Display lists of account in a table
-- [ ] Update account (pending)
+- [x] Display lists of account in a table
+- [x] Update account (pending)
 - [x] Switch account
 - [x] Delete account
+- [] Add ssh key specifics on account
 
 ## Contributing
 
