@@ -26,7 +26,7 @@ var switchAccountCmd = &cobra.Command{
 			return
 		}
 
-		account, err := viewAccountByID(int(parsedId))
+		acc, err := viewAccountByID(int(parsedId))
 		if err != nil {
 			if errors.Is(err, ErrAccountNotFound) {
 				cmd.Println("Error: Account not found")
@@ -45,13 +45,13 @@ var switchAccountCmd = &cobra.Command{
 			return
 		}
 
-		gitUsernameCmd := exec.Command("git", "config", "--global", "user.name", account.Username)
+		gitUsernameCmd := exec.Command("git", "config", "--global", "user.name", *acc.Username)
 		if err := gitUsernameCmd.Run(); err != nil {
 			cmd.Println("Failed to set git username:", err)
 			return
 		}
 
-		gitEmailCmd := exec.Command("git", "config", "--global", "user.email", account.Email)
+		gitEmailCmd := exec.Command("git", "config", "--global", "user.email", *acc.Email)
 		if err := gitEmailCmd.Run(); err != nil {
 			cmd.Println("Failed to set git email:", err)
 			return

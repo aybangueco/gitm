@@ -27,7 +27,7 @@ var listAccountsCmd = &cobra.Command{
 		}
 
 		for _, account := range accounts {
-			t.AppendRow(table.Row{account.Id, account.Username, account.Email, account.Active})
+			t.AppendRow(table.Row{account.Id, *account.Username, *account.Email, *account.Active})
 		}
 
 		cmd.Println(t.Render())

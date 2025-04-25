@@ -34,7 +34,7 @@ var addAccountCmd = &cobra.Command{
 			return
 		}
 
-		err = addNewAccount(account{Username: username, Email: email})
+		err = addNewAccount(account{Username: &username, Email: &email})
 		if err != nil {
 			fmt.Println("Error creating new account: ", err.Error())
 			return
