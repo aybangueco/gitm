@@ -10,10 +10,10 @@ import (
 )
 
 type account struct {
-	Id       int    `json:"id"`
-	Username string `json:"username"`
-	Email    string `json:"email"`
-	Active   bool   `json:"active"`
+	Id       int
+	Username *string
+	Email    *string
+	Active   *bool
 }
 
 func newDBConn() (*sql.DB, error) {
@@ -127,6 +127,43 @@ func addNewAccount(account account) error {
 	_, err = db.Exec(query, account.Username, account.Email)
 	if err != nil {
 		log.Println(err)
+		return err
+	}
+
+	return nil
+}
+
+func updateAccount(id int, account account) error {
+	db, err := newDBConn()
+	if err != nil {
+		return err
+	}
+
+	acc, err := viewAccountByID(id)
+	if err != nil {
+		if errors.Is(err, ErrAccountNotFound) {
+			return ErrAccountNotFound
+		}
+
+		return err
+	}
+
+	if account.Username == nil {
+		account.Username = acc.Username
+	}
+
+	if account.Email == nil {
+		account.Email = acc.Email
+	}
+
+	if account.Active == nil {
+		account.Active = acc.Active
+	}
+
+	query := `UPDATE account SET username = ?, email = ?, active = ? WHERE id = ?`
+
+	_, err = db.Exec(query, account.Username, account.Email, account.Active, id)
+	if err != nil {
 		return err
 	}
 
