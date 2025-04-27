@@ -5,6 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -17,7 +19,12 @@ type account struct {
 }
 
 func newDBConn() (*sql.DB, error) {
-	db, err := sql.Open("sqlite3", "gitm.db")
+	execDir, err := os.Executable()
+	if err != nil {
+		return nil, err
+	}
+
+	db, err := sql.Open("sqlite3", filepath.Join(filepath.Dir(execDir), "gitm.db"))
 	if err != nil {
 		return nil, err
 	}
