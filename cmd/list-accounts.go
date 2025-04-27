@@ -17,6 +17,11 @@ var listAccountsCmd = &cobra.Command{
 	Use:   "list-accounts",
 	Short: "Display list of git accounts",
 	Run: func(cmd *cobra.Command, args []string) {
+		if !isInitialized() {
+			cmd.Println("Gitm is not initialized yet, please run gitm init to initialize gitm!")
+			return
+		}
+
 		t := table.NewWriter()
 		t.AppendHeader(rowHeader)
 
