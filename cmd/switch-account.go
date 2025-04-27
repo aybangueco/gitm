@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"database/sql"
 	"errors"
 	"os/exec"
 	"strconv"
@@ -32,12 +33,17 @@ var switchAccountCmd = &cobra.Command{
 				cmd.Println("Error: Account not found")
 				return
 			}
+
+			cmd.Println(err.Error())
+			return
 		}
 
 		activeAccount, err := getActiveAccount()
 		if err != nil {
-			cmd.Println(err.Error())
-			return
+			if !errors.Is(err, sql.ErrNoRows) {
+				cmd.Println(err.Error())
+				return
+			}
 		}
 
 		err = isGitInstalled()
