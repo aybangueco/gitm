@@ -19,12 +19,14 @@ type account struct {
 }
 
 func newDBConn() (*sql.DB, error) {
-	execDir, err := os.Getwd()
+	execDir, err := os.Executable()
 	if err != nil {
 		return nil, err
 	}
 
-	db, err := sql.Open("sqlite3", filepath.Join(execDir, "gitm.db"))
+	executableDirectory := filepath.Dir(execDir)
+
+	db, err := sql.Open("sqlite3", filepath.Join(executableDirectory, "gitm.db"))
 	if err != nil {
 		return nil, err
 	}

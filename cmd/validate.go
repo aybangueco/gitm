@@ -2,13 +2,23 @@ package cmd
 
 import (
 	"errors"
+	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"regexp"
 )
 
 func isInitialized() bool {
-	if _, err := os.Stat("gitm.db"); err == nil {
+	execDir, err := os.Executable()
+	if err != nil {
+		log.Println(err.Error())
+		return false
+	}
+
+	executableDirectory := filepath.Dir(execDir)
+
+	if _, err := os.Stat(filepath.Join(executableDirectory, "gitm.db")); err == nil {
 		return true
 	}
 
