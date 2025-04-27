@@ -9,7 +9,7 @@ I noticed that there is no built in functionality in git itself, when managing a
 ## Installation
 
 ```bash
-go install github.com/aybangueco/gitm
+go install github.com/aybangueco/gitm@latest
 ```
 
 ## Commands
@@ -29,8 +29,11 @@ Shows list of accounts.
 ```bash
 gitm list-accounts
 ```
+
 ### Switch Account
+
 Switch to an existing accounts (replace account id with actual id of account).
+
 ```bash
 gitm switch-account [accountID]
 ```
