@@ -63,11 +63,13 @@ var switchAccountCmd = &cobra.Command{
 			return
 		}
 
-		oldAccountActive := false
-		err = updateAccount(activeAccount.Id, account{Active: &oldAccountActive})
-		if err != nil {
-			cmd.Println(err.Error())
-			return
+		if activeAccount.Username != nil {
+			currentAccountActive := false
+			err = updateAccount(activeAccount.Id, account{Active: &currentAccountActive})
+			if err != nil {
+				cmd.Println(err.Error())
+				return
+			}
 		}
 
 		switchedAccountActive := true

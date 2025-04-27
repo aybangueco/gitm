@@ -119,7 +119,7 @@ func getActiveAccount() (account, error) {
 
 	db, err := newDBConn()
 	if err != nil {
-		return account, nil
+		return account, err
 	}
 
 	query := `SELECT * FROM account WHERE active = 1`
